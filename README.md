@@ -1,62 +1,63 @@
 # QA Demo Store
 
-A static e-commerce teaching application built with HTML, CSS, vanilla JavaScript ES modules and Vite. It contains deterministic demo data, testable domain rules, unit tests and a GitHub Pages workflow. All accounts, products, addresses and payments are fictional.
+Application e-commerce statique de démonstration, développée en HTML, CSS et JavaScript vanilla avec les modules ES et Vite. Elle sert de support aux tests logiciels et à l'automatisation QA : données de démonstration déterministes, règles métier testables, tests unitaires, couverture de code et déploiement continu sur GitHub Pages. Tous les comptes, produits et paiements sont fictifs.
 
-**Live demo:** add your actual Pages URL here after publishing. The expected URL for a repository called `qa-demo-store` is `https://<username>.github.io/qa-demo-store/`.
+**Application en ligne :** [maximejoannis.github.io/qa-demo-store](https://maximejoannis.github.io/qa-demo-store/)
 
-## Features
+## Fonctionnalités
 
-- Registration, simulated login/logout, locked account, customer/admin permissions, editable profile and default delivery address.
-- Six categories, 16 products with local SVG illustrations, detail pages, search, combined filters, six sort modes and pagination.
-- Date-bounded promotions, wishlist and transfer to cart, reviews, stock limits, quantity editing and persistent cart.
-- Coupons (`WELCOME10`, `SAVE20`, `FREESHIP`), three shipping methods, pricing in cents with tax, four checkout screens, deterministic demo payment, confirmation and order history/details.
-- Cancellation with stock restoration, admin product stock/price/availability and order status controls.
-- Light/dark mode, persisted sort/page size, accessible status messages, empty states and **Reset Demo Data**.
+- Inscription, connexion et déconnexion simulées, compte verrouillé, rôles client et administrateur, profil modifiable et adresse de livraison par défaut.
+- Catalogue de 16 produits répartis en six catégories, illustrations SVG locales, fiches détaillées, recherche, filtres combinables, six tris et pagination.
+- Promotions limitées dans le temps, liste de souhaits avec transfert vers le panier, avis, gestion des stocks et panier persistant.
+- Coupons `WELCOME10`, `SAVE20` et `FREESHIP`, trois modes de livraison, calculs en centimes avec taxe, commande en quatre étapes et paiement fictif déterministe.
+- Confirmation, historique et détails des commandes ; annulation avec restitution du stock ; gestion des produits et statuts des commandes par l'administrateur.
+- Modes clair et sombre, préférences de tri et de pagination persistantes, messages accessibles, états vides et bouton **Reset Demo Data**.
 
-## Setup and commands
+## Installation et commandes
 
-Requires Node.js 20 or later. From the repository root:
+**Prérequis : Node.js 24** pour exécuter les tests d'interface avec la version de jsdom utilisée par le projet. Depuis la racine du dépôt :
 
-| Command                                   | Purpose                                       |
-| ----------------------------------------- | --------------------------------------------- |
-| `npm install` / `npm ci`                  | Install dependencies; use `npm ci` in CI      |
-| `npm run dev`                             | Vite development server                       |
-| `npm run build`                           | Produce static `dist/`                        |
-| `npm run preview`                         | Serve the production build locally            |
-| `npm test` / `npm run test:watch`         | Run unit tests once / continuously            |
-| `npm run test:coverage`                   | V8 text, HTML and LCOV reports in `coverage/` |
-| `npm run lint` / `npm run lint:fix`       | ESLint check / fix                            |
-| `npm run format` / `npm run format:check` | Prettier write / check                        |
-| `npm run quality`                         | Format, lint, coverage gate, production build |
+| Commande                                  | Rôle                                                          |
+| ----------------------------------------- | ------------------------------------------------------------- |
+| `npm install` / `npm ci`                  | Installer les dépendances ; la CI utilise `npm ci`            |
+| `npm run dev`                             | Démarrer le serveur de développement Vite                     |
+| `npm run build`                           | Générer le site statique dans `dist/`                         |
+| `npm run preview`                         | Prévisualiser localement le build de production               |
+| `npm test` / `npm run test:watch`         | Exécuter les tests une fois / en continu                      |
+| `npm run test:coverage`                   | Produire les rapports V8 texte, HTML et LCOV dans `coverage/` |
+| `npm run lint` / `npm run lint:fix`       | Vérifier / corriger avec ESLint                               |
+| `npm run format` / `npm run format:check` | Formater / vérifier avec Prettier                             |
+| `npm run quality`                         | Vérifier format, lint, tests, couverture et build             |
 
-Open the Vite URL ending in `/qa-demo-store/`. Opening source `index.html` with `file://` does not run a Vite application.
+Ouvrir l'URL fournie par Vite, sous `/qa-demo-store/`. Ouvrir directement le fichier source `index.html` avec `file://` ne lance pas l'application Vite.
 
-## Demo data
+## Comptes et paiements de démonstration
 
-| Username        | Password   | Role            |
-| --------------- | ---------- | --------------- |
-| `standard_user` | `demo123`  | Customer        |
-| `premium_user`  | `demo123`  | Customer        |
-| `admin_user`    | `admin123` | Admin           |
-| `locked_user`   | `demo123`  | Locked customer |
+| Identifiant     | Mot de passe | Rôle              |
+| --------------- | ------------ | ----------------- |
+| `standard_user` | `demo123`    | Client            |
+| `premium_user`  | `demo123`    | Client            |
+| `admin_user`    | `admin123`   | Administrateur    |
+| `locked_user`   | `demo123`    | Compte verrouillé |
 
-Demo Card `4242424242424242` is accepted; `4000000000000002` is declined, `4000000000000069` is expired, `4000000000000119` simulates a technical error. Pay on Delivery is also available. **Never enter a real card or personal password.** All records are stored only in this browser's localStorage; Reset Demo Data restores the original products, accounts, orders, reviews and preferences.
+La carte fictive `4242424242424242` est acceptée ; `4000000000000002` est refusée, `4000000000000069` simule une carte expirée et `4000000000000119` une erreur technique. Le paiement à la livraison est également disponible. **Ne saisir aucune vraie carte ni aucun mot de passe personnel.** Les données sont enregistrées dans le `localStorage` du navigateur. **Reset Demo Data** restaure les comptes, produits, commandes, avis et préférences initiaux.
 
-When updating an existing installation, the startup migration adds missing illustration paths and promotion dates to previously saved products while keeping edited stock, prices and orders. If the browser still shows an older deployed version, confirm that Pages publishes the latest successful workflow and reload the page without using the cached copy.
+Lorsqu'une version plus ancienne a déjà été utilisée dans le navigateur, une migration complète les chemins des illustrations et les dates des promotions sans effacer les stocks, prix et commandes modifiés.
 
-## Architecture and testing
+## Architecture et tests
 
-`src/main.js` handles rendering, navigation and DOM events. `src/auth`, `catalog`, `cart`, `inventory`, `promotions`, `coupons`, `shipping`, `payment`, `pricing`, `orders`, `admin` and `storage` contain testable rules. `src/data` defines products; `public/products` holds SVG assets; `src/styles` contains responsive light/dark styles. Tests are in `tests/`.
+`src/main.js` gère l'affichage, la navigation et les événements du DOM. Les règles métier testables sont réparties dans `src/auth`, `catalog`, `cart`, `inventory`, `promotions`, `coupons`, `shipping`, `payment`, `pricing`, `orders`, `admin` et `storage`. Les produits sont définis dans `src/data`, les illustrations se trouvent dans `public/products`, les styles adaptatifs dans `src/styles` et les tests dans `tests/`.
 
-Vitest and V8 enforce statements ≥ 90%, lines ≥ 90%, functions ≥ 90% and branches ≥ 85%. The V8 report **excludes the DOM shell `src/main.js`**; the two jsdom tests exercise selected UI flows, including checkout. These figures are _code coverage_. Functional coverage against user stories and end-to-end scenarios belongs to the later Playwright project and must be measured separately.
+Vitest avec V8 impose les seuils suivants : **instructions ≥ 90 %, lignes ≥ 90 %, fonctions ≥ 90 % et branches ≥ 85 %**. Le rapport de couverture exclut `src/main.js`, qui contient l'interface. Deux tests jsdom exercent certains parcours de l'interface, dont la commande complète. Ces pourcentages mesurent la **couverture de code** ; la **couverture fonctionnelle** des exigences et scénarios sera suivie séparément dans le futur projet Playwright.
 
-## GitHub Pages and CI
+## CI et GitHub Pages
 
-1. Create a public repository named `qa-demo-store` and place the **contents of this folder** at its root; push to `main`.
-2. Under **Settings → Pages → Build and deployment**, choose **GitHub Actions** as source.
-3. `.github/workflows/ci.yml` runs `npm ci`, Prettier, ESLint, tests with coverage gate and Vite build on pushes and pull requests to `main`. Only a successful push to `main` deploys `dist/`.
-4. Vite uses `base: '/qa-demo-store/'`. The published entry point is `dist/index.html`; local SVGs, JS and CSS use the same base. Routes use hashes (`#/products/1`, `#/orders`, `#/admin`), so refresh and direct links do not require a server fallback.
+Le workflow [`.github/workflows/ci.yml`](.github/workflows/ci.yml) lance `npm ci`, Prettier, ESLint, les tests et le seuil de couverture, puis le build Vite sur les pushs et pull requests vers `main`. Seul un push sur `main` dont les contrôles réussissent publie `dist/` sur GitHub Pages ; les pull requests ne publient pas l'application.
 
-## Limits and next steps
+Dans les paramètres du dépôt, la source Pages doit être **GitHub Actions**. Vite utilise `base: '/qa-demo-store/'` : `dist/index.html`, les scripts, les styles et les SVG sont ainsi servis sous le bon chemin. La navigation utilise des URL avec `#` (`#/products/1`, `#/orders`, `#/admin`), compatibles avec l'actualisation et l'accès direct sur un hébergement statique.
 
-This public, browser-only application **does not provide real authentication or secure password storage**. Registration passwords reside in localStorage in plain text: use invented demo credentials exclusively. Payment never contacts a bank. Dates and order numbers are deterministic or derived from local browser state; no shared server state exists. The SVGs are illustrative drawings rather than product photos. Browser E2E, accessibility audits and functional coverage tracking are planned for the separate Playwright project. Publication and a live URL require the repository owner to perform the steps above.
+## Limites et suite du projet
+
+Cette application publique fonctionne uniquement dans le navigateur. **L'authentification est simulée et n'assure aucune sécurité réelle** : les mots de passe créés à l'inscription sont conservés en clair dans le `localStorage`. Il faut donc utiliser exclusivement des identifiants inventés. Aucun paiement bancaire ni partage de données entre navigateurs n'est effectué. Les SVG sont des illustrations, pas des photos produits. Les tests E2E Playwright, les audits d'accessibilité et le suivi de couverture fonctionnelle sont prévus dans un projet QA distinct.
+
+Le code est consultable dans ce dépôt public. **Aucune licence de réutilisation n'est accordée.**
