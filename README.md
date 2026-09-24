@@ -1,4 +1,6 @@
 # QA Demo Store
+[![CI](https://github.com/maximejoannis/qa-demo-store/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/maximejoannis/qa-demo-store/actions/workflows/ci.yml)
+[![Application en ligne](https://img.shields.io/badge/application-en_ligne-2ea44f)](https://maximejoannis.github.io/qa-demo-store/)
 
 Application e-commerce statique de démonstration, développée en HTML, CSS et JavaScript vanilla avec les modules ES et Vite. Elle sert de support aux tests logiciels et à l'automatisation QA : données de démonstration déterministes, règles métier testables, tests unitaires, couverture de code et déploiement continu sur GitHub Pages. Tous les comptes, produits et paiements sont fictifs.
 
