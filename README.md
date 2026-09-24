@@ -1,4 +1,5 @@
 # QA Demo Store
+
 [![CI](https://github.com/maximejoannis/qa-demo-store/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/maximejoannis/qa-demo-store/actions/workflows/ci.yml)
 [![Site](https://img.shields.io/website?url=https%3A%2F%2Fmaximejoannis.github.io%2Fqa-demo-store%2F&label=site&up_message=accessible&down_message=indisponible)](https://maximejoannis.github.io/qa-demo-store/)
 
