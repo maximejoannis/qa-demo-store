@@ -1,6 +1,12 @@
 # QA Demo Store
 [![CI](https://github.com/maximejoannis/qa-demo-store/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/maximejoannis/qa-demo-store/actions/workflows/ci.yml)
-[![Application en ligne](https://img.shields.io/badge/application-en_ligne-2ea44f)](https://maximejoannis.github.io/qa-demo-store/)
+[![Site](https://img.shields.io/website?url=https%3A%2F%2Fmaximejoannis.github.io%2Fqa-demo-store%2F&label=site&up_message=accessible&down_message=indisponible)](https://maximejoannis.github.io/qa-demo-store/)
+
+![JavaScript vanilla](https://img.shields.io/badge/JavaScript-vanilla-F7DF1E?logo=javascript&logoColor=black)
+![Vite](https://img.shields.io/badge/build-Vite-646CFF?logo=vite&logoColor=white)
+![Vitest](https://img.shields.io/badge/tests-Vitest-6E9F18?logo=vitest&logoColor=white)
+![Node.js 24](https://img.shields.io/badge/Node.js-24-339933?logo=nodedotjs&logoColor=white)
+![Sans licence](https://img.shields.io/badge/licence-aucune-555555)
 
 Application e-commerce statique de démonstration, développée en HTML, CSS et JavaScript vanilla avec les modules ES et Vite. Elle sert de support aux tests logiciels et à l'automatisation QA : données de démonstration déterministes, règles métier testables, tests unitaires, couverture de code et déploiement continu sur GitHub Pages. Tous les comptes, produits et paiements sont fictifs.
 
