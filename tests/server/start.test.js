@@ -11,13 +11,20 @@ describe('server start-up', () => {
       dbFile: 'data/db.json',
       allowedOrigins: ['http://localhost:5173', 'http://localhost:4173'],
       demoMode: true,
+      faultsEnabled: true,
     });
     expect(
-      readConfig({ QADS_DEMO: '0', QADS_ALLOWED_ORIGINS: ' a , ,b', PORT: '4000' }),
+      readConfig({
+        QADS_DEMO: '0',
+        QADS_FAULTS: '0',
+        QADS_ALLOWED_ORIGINS: ' a , ,b',
+        PORT: '4000',
+      }),
     ).toMatchObject({
       port: 4000,
       allowedOrigins: ['a', 'b'],
       demoMode: false,
+      faultsEnabled: false,
     });
   });
 

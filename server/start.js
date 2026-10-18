@@ -1,6 +1,6 @@
 /**
  * Starts the optional Node API: `npm run server` (port 3000, data in data/db.json).
- * Environment: PORT, QADS_DB_FILE, QADS_ALLOWED_ORIGINS (comma separated), QADS_DEMO=0.
+ * Environment: PORT, QADS_DB_FILE, QADS_ALLOWED_ORIGINS (comma separated), QADS_DEMO=0, QADS_FAULTS=0.
  */
 import { fileURLToPath } from 'node:url';
 import { createQadsServer } from './app.js';
@@ -16,6 +16,7 @@ export function readConfig(env) {
       .map((origin) => origin.trim())
       .filter(Boolean),
     demoMode: env.QADS_DEMO !== '0',
+    faultsEnabled: env.QADS_FAULTS !== '0',
   };
 }
 
@@ -29,6 +30,7 @@ export async function main(env, print = console.log) {
     store: createFileStore(config.dbFile),
     allowedOrigins: config.allowedOrigins,
     demoMode: config.demoMode,
+    faultsEnabled: config.faultsEnabled,
   });
   await new Promise((resolve) => server.listen(config.port, '127.0.0.1', () => resolve(undefined)));
   const { port } = /** @type {import('node:net').AddressInfo} */ (server.address());

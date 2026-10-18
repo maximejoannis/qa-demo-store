@@ -10,7 +10,7 @@ export class Mutex {
 
 /**
  * In-memory store with copy-on-read semantics and transactional rollback.
- * `persist` receives the committed changes (used by the IndexedDB adapter).
+ * `persist` receives the committed changes (localStorage mirror in the browser, JSON file for the Node API).
  */
 export class MemoryDocumentStore {
   data = new Map();

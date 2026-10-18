@@ -26,7 +26,7 @@ Exemple Playwright :
 \`\`\`js
 await page.goto('/qa-demo-store/?qa=1&seed=42&now=2026-10-12T10:00:00%2B02:00#/products');
 await expect(page.getByTestId('view')).toHaveAttribute('data-state', 'ready');
-await page.getByTestId('product-add-cart-17').click();
+await page.getByTestId('product-add-cart-3').click();
 await expect(page.getByTestId('cart-badge')).toHaveText('1');
 \`\`\`
 
