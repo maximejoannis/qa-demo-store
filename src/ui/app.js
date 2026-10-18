@@ -171,7 +171,7 @@ export class App {
       this.deps.api.get('/meta').catch(() => null),
       this.deps.api.get('/auth/me').catch(() => ({ user: null })),
     ]);
-    this.state.meta = meta;
+    this.state.meta = meta && typeof meta.now === 'string' ? meta : null;
     this.state.user = me.user;
     setI18nFaults({
       rawKeyPrefixes: webFault(this.state, 'FAULT-I18N-01') ? ['cart.', 'summary.'] : [],

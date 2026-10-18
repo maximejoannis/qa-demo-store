@@ -6,12 +6,14 @@ export default defineConfig({
     environment: 'node',
     environmentMatchGlobs: [['tests/ui/**', 'jsdom']],
     env: { TZ: 'Europe/Paris' },
+    setupFiles: ['tests/ui/setup.js'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html', 'lcov', 'json-summary'],
       reportsDirectory: 'coverage',
       include: ['src/**/*.js', 'server/**/*.js'],
-      // Interface included: no file is excluded from coverage.
+      // Interface included. Only exclusion: a JSDoc-typedef file without runtime code.
+      exclude: ['src/engine/types.js'],
       thresholds: {
         perFile: true,
         lines: 80,
