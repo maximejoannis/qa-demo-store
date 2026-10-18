@@ -9,7 +9,7 @@ describe('WEB-RGPD consent banner', () => {
     expect(reject.className).toBe(accept.className);
     await h.click('consent-reject-all');
     expect(h.maybe('consent-banner')).toBeNull();
-    expect(JSON.parse(h.storage.getItem('qads:consent') ?? '{}')).toMatchObject({
+    expect(JSON.parse(h.storage.getItem('qads2:consent') ?? '{}')).toMatchObject({
       analytics: false,
       personalization: false,
       date: '2026-10-12',
@@ -37,11 +37,11 @@ describe('WEB-RGPD consent banner', () => {
     await h.click('consent-accept-all');
     await h.click('consent-manage');
     await h.click('consent-reject-all');
-    expect(h.storage.getItem('qads:recent')).toBeNull();
+    expect(h.storage.getItem('qads2:recent')).toBeNull();
   });
   it('WEB-RGPD-03 the choice expires after 6 months', async () => {
     const storage = memoryStorage({
-      'qads:consent': JSON.stringify({
+      'qads2:consent': JSON.stringify({
         analytics: true,
         personalization: true,
         date: '2026-03-01',
@@ -50,10 +50,10 @@ describe('WEB-RGPD consent banner', () => {
     });
     const h = await startApp({ storage });
     expect(h.maybe('consent-banner')).not.toBeNull();
-    expect(storage.getItem('qads:consent')).toBeNull();
+    expect(storage.getItem('qads2:consent')).toBeNull();
     const fresh = await startApp({
       storage: memoryStorage({
-        'qads:consent': JSON.stringify({
+        'qads2:consent': JSON.stringify({
           analytics: false,
           personalization: false,
           date: '2026-10-01',

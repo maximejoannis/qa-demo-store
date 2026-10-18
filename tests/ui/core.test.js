@@ -109,7 +109,7 @@ describe('WEB-CORE api client', () => {
       'content-type': 'application/json',
     });
     expect(calls[1]?.[1].headers).toMatchObject({ authorization: `Bearer ${'a'.repeat(64)}` });
-    expect(storage.getItem('qads:session')).toBeNull();
+    expect(storage.getItem('qads2:session')).toBeNull();
     expect(calls[1]?.[1].credentials).toBe('same-origin');
     await client.put('/x', {}).catch((error) => expect(error.status).toBe(500));
     await client.delete('/x').catch(() => undefined);

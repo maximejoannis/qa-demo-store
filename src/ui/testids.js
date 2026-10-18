@@ -18,6 +18,7 @@ export const TID = {
   resetDemo: 'reset-demo',
   demoBanner: 'demo-banner',
   viewRoot: 'view',
+  bootReset: 'boot-reset',
   // Consent banner
   consentBanner: 'consent-banner',
   consentAcceptAll: 'consent-accept-all',

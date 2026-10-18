@@ -41,7 +41,7 @@
   "admin.title": "Administration",
   "admin.to": "Au",
   "admin.top": "Meilleures ventes",
-  "app.bootErrorText": "Ouvrez la page via http://localhost (et non une adresse IP ou file://), autorisez le stockage du site, puis rechargez. Le détail technique ci-dessous peut être joint à une fiche d'anomalie.",
+  "app.bootErrorText": "Ouvrez la page via http://localhost (pas une adresse IP ni file://) et autorisez le stockage du site. Si le problème persiste, effacez les données locales avec le bouton ci-dessous : elles viennent peut-être d'une ancienne version. Le détail technique peut être joint à une fiche d'anomalie.",
   "app.bootErrorTitle": "L'application n'a pas pu démarrer",
   "app.loading": "Chargement de la boutique de démonstration…",
   "badge.Best seller": "Meilleure vente",
@@ -453,5 +453,6 @@
   "wishlist.removed": "Retiré des favoris.",
   "wishlist.saved": "Ajouté aux favoris.",
   "wishlist.signIn": "Connectez-vous pour enregistrer des favoris.",
-  "wishlist.title": "Favoris"
+  "wishlist.title": "Favoris",
+  "app.bootReset": "Effacer les données locales et recharger"
 }

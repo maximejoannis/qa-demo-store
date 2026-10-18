@@ -32,6 +32,7 @@ await expect(page.getByTestId('cart-badge')).toHaveText('1');
 | `reset-demo` | `TID.resetDemo` | v1 |
 | `demo-banner` | `TID.demoBanner` | v2 |
 | `view` | `TID.viewRoot` | v2 |
+| `boot-reset` | `TID.bootReset` | v2 |
 | `consent-banner` | `TID.consentBanner` | v2 |
 | `consent-accept-all` | `TID.consentAcceptAll` | v2 |
 | `consent-reject-all` | `TID.consentRejectAll` | v2 |

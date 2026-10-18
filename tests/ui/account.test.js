@@ -106,7 +106,7 @@ describe('WEB-ACC accounts', () => {
     expect(document.documentElement.dataset.theme).toBe('dark');
     expect(document.documentElement.lang).toBe('en');
     expect(h.maybe('qa-toolbar')).not.toBeNull();
-    expect(JSON.parse(h.storage.getItem('qads:prefs') ?? '{}')).toMatchObject({
+    expect(JSON.parse(h.storage.getItem('qads2:prefs') ?? '{}')).toMatchObject({
       lang: 'en',
       theme: 'dark',
       sort: 'price-asc',

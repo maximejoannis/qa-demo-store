@@ -1,6 +1,7 @@
 import axe from 'axe-core';
 import { describe, expect, it } from 'vitest';
 import { declaredPatterns, V1_TESTIDS } from '../../src/ui/testids.js';
+import { showBootError } from '../../src/ui/boot.js';
 import { startApp } from './harness.js';
 
 const seen = new Set();
@@ -117,6 +118,9 @@ describe('WEB-CONTRACT data-testid contract and accessibility tour', () => {
     h.fill('[data-testid="kpi-from"]', '2026-01-01');
     await h.submit('[data-form="kpiPeriod"]');
     await audit(h, 'admin-with-data');
+    const boot = document.createElement('div');
+    showBootError(boot, new Error('x'), () => undefined);
+    boot.querySelectorAll('[data-testid]').forEach((element) => seen.add(element.dataset.testid));
     const missing = declaredPatterns().filter((pattern) => {
       const regex = new RegExp(
         `^${pattern

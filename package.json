@@ -1,6 +1,6 @@
 {
   "name": "qa-demo-store",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "private": true,
   "type": "module",
   "description": "Boutique fictive en HTML, CSS et JavaScript vanilla : terrain d'entraînement pour les tests fonctionnels et automatisés.",

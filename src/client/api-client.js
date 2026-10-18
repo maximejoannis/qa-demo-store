@@ -9,7 +9,7 @@ export class ApiProblem extends Error {
   }
 }
 
-const TOKEN_KEY = 'qads:session';
+const TOKEN_KEY = 'qads2:session';
 
 /** The only gateway to the back-end. In demo mode the session token is kept in sessionStorage. */
 export class ApiClient {

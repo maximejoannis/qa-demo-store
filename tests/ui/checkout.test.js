@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { startApp } from './harness.js';
+import { memoryStorage, startApp } from './harness.js';
 
 async function cartWith(h, ids) {
   await h.go('#/products');
@@ -59,12 +59,41 @@ describe('WEB-CART cart and quote', () => {
     const kept = await startApp({ storage: h.storage });
     expect(kept.text('cart-badge')).toBe('1');
     h.storage.setItem(
-      'qads:cart',
+      'qads2:cart',
       JSON.stringify({ lines: [{ productId: 4, qty: 1 }], updatedAt: '2026-09-01' }),
     );
     const expired = await startApp({ storage: h.storage });
     expect(expired.text('cart-badge')).toBe('0');
-    expect(h.storage.getItem('qads:cart')).toBeNull();
+    expect(h.storage.getItem('qads2:cart')).toBeNull();
+  });
+  it('WEB-CART-04 v1 data or corrupted values in localStorage never block the start-up', async () => {
+    // Same origin as v1 (localhost:5173, GitHub Pages): v1 stored `qads:cart` as an array.
+    const storage = memoryStorage({
+      'qads:cart': JSON.stringify([{ id: 3, qty: 1 }]),
+      'qads:users': JSON.stringify([{ username: 'x', password: 'clear' }]),
+      'qads:preferences': JSON.stringify({ sort: 'price' }),
+      'qads2:cart': JSON.stringify([{ id: 3, quantity: 2 }]),
+      'qads2:consent': '{"date": 12}',
+      'qads2:recent': 'not json',
+      'qads2:prefs': JSON.stringify({ theme: 'pink', sort: 'nope', perPage: 1000 }),
+    });
+    const h = await startApp({ storage });
+    expect(h.$('view').dataset.state).toBe('ready');
+    expect(h.text('cart-badge')).toBe('0');
+    expect(h.maybe('consent-banner')).not.toBeNull();
+    expect(storage.getItem('qads2:cart')).toBeNull();
+    expect(storage.getItem('qads2:consent')).toBeNull();
+    expect(storage.getItem('qads2:recent')).toBeNull();
+    expect(storage.getItem('qads:users')).not.toBeNull(); // v1 data is left untouched
+    const partial = await startApp({
+      storage: memoryStorage({
+        'qads2:cart': JSON.stringify({
+          lines: [null, 'x', { productId: 4, qty: 1 }],
+          updatedAt: '2026-10-12',
+        }),
+      }),
+    });
+    expect(partial.text('cart-badge')).toBe('1');
   });
 });
 

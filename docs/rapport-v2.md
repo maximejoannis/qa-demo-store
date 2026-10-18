@@ -9,7 +9,7 @@ QA Demo Store v2 reste une application **HTML, CSS et JavaScript vanilla** (Vite
 | Vérification                                                     | Résultat                                                               |
 | ---------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | `npm run quality` (format, lint, couverture, traçabilité, build) | Vert                                                                   |
-| Tests unitaires                                                  | 27 fichiers, 220 tests, tous verts                                     |
+| Tests unitaires                                                  | 27 fichiers, 222 tests, tous verts                                     |
 | Couverture globale                                               | 99,9 % lignes, 96 % branches, 99,3 % fonctions (interface incluse)     |
 | Couverture par fichier                                           | ≥ 80 % pour chaque fichier, ≥ 95 % (branches ≥ 90 %) pour `src/engine` |
 | Traçabilité                                                      | 85 règles documentées, toutes couvertes par au moins un test           |
@@ -27,6 +27,10 @@ Seule exclusion de couverture : `src/engine/types.js`, qui ne contient que des d
 | `npm run server` + `npm run dev:server`   | Bureau, mobile | ≈ 0,4 s        | OK, cookie `qads_session` HttpOnly               | 0               |
 
 Aucun débordement horizontal à 390 px de large.
+
+### Compatibilité avec les données de la v1
+
+Un navigateur qui a déjà ouvert la v1 sur la même adresse (localhost:5173 ou GitHub Pages) garde ses données v1 dans le localStorage. Vérifié dans Chromium : données réelles créées par la v1, puis ouverture de la v2 → la v2 démarre normalement (corrigé en 2.0.1, test `WEB-CART-04`).
 
 ### Non vérifié ici
 

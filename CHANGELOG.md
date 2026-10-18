@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.0.1 — 2026-10-18
+
+### Corrigé
+
+- Démarrage impossible (« Invalid ISO date: undefined ») dans un navigateur qui avait déjà ouvert la v1 sur la même adresse : la v1 stockait `qads:cart` sous une autre forme. Les clés v2 utilisent désormais le préfixe `qads2:` et chaque valeur lue est vérifiée (une valeur invalide est ignorée et supprimée). Test `WEB-CART-04`, reproduit dans Chromium avec de vraies données v1.
+- L'écran d'erreur de démarrage propose un bouton « Effacer les données locales et recharger » (`data-testid="boot-reset"`).
+
 ## 2.0.0 — 2026-10-18
 
 Réécriture complète, toujours en HTML, CSS et JavaScript vanilla (modules ES, Vite), un seul `package.json`.

@@ -6,7 +6,7 @@ import { createApi } from './api.js';
 import { createWebCryptoPort } from './crypto.js';
 import { MemoryDocumentStore } from './store.js';
 
-export const DB_KEY = 'qads:db';
+export const DB_KEY = 'qads2:db';
 
 /**
  * Store persisted as one JSON document in localStorage. Falls back to memory only when

@@ -4,6 +4,7 @@ import { mount } from './core/html.js';
 import { href, parseHash, PROTECTED } from './core/router.js';
 import { webFault } from './faults.js';
 import { detectLang, getLang, setI18nFaults, setLang, t } from '../i18n/index.js';
+import { SORT_KEYS } from '../backend/schemas.js';
 import { CONSENT_VERSION, defaultCatalog, emptyCheckout, Persisted } from './state.js';
 import { adminView } from './views/admin.js';
 import {
@@ -91,7 +92,7 @@ export class App {
       meta: null,
       transport: deps.transport,
       lang,
-      theme: prefs.theme ?? 'light',
+      theme: prefs.theme === 'dark' ? 'dark' : 'light',
       message: null,
       cart: [],
       coupon: null,
@@ -101,7 +102,10 @@ export class App {
       quote: null,
       quoteProblem: null,
       checkout: emptyCheckout(),
-      catalog: defaultCatalog(prefs.sort, prefs.perPage),
+      catalog: defaultCatalog(
+        SORT_KEYS.includes(prefs.sort) ? prefs.sort : undefined,
+        [4, 8, 16].includes(prefs.perPage) ? prefs.perPage : undefined,
+      ),
       consent: this.persisted.read('consent', null),
       consentOpen: false,
       consentCustomize: false,
@@ -190,7 +194,12 @@ export class App {
       return;
     }
     this.state.cart = saved.lines.filter(
-      (line) => Number.isInteger(line.productId) && Number.isInteger(line.qty) && line.qty > 0,
+      (line) =>
+        typeof line === 'object' &&
+        line !== null &&
+        Number.isInteger(line.productId) &&
+        Number.isInteger(line.qty) &&
+        line.qty > 0,
     );
   }
   saveCart() {

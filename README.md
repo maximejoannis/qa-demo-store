@@ -87,7 +87,7 @@ Le même code `src/backend` tourne **dans la page** (GitHub Pages, `npm run dev`
 
 ## Qualité
 
-- **220 tests unitaires**, couverture vérifiée **fichier par fichier** : ≥ 80 % partout, ≥ 95 % pour le moteur (mesuré : 99,9 % des lignes, 96 % des branches). L'interface est incluse dans la mesure.
+- **222 tests unitaires**, couverture vérifiée **fichier par fichier** : ≥ 80 % partout, ≥ 95 % pour le moteur (mesuré : 99,9 % des lignes, 96 % des branches). L'interface est incluse dans la mesure.
 - Tests de propriétés (fast-check), contrat d'API rejoué sur les trois adaptateurs, contrôle axe-core, sécurité de l'API Node (cookies, CSRF, CORS, débit, IDOR, taille du corps).
 - Chaque règle métier documentée est couverte par au moins un test (`npm run traceability:check`, vérifié en CI).
 - Les tests E2E Playwright vivent dans le projet QA séparé.

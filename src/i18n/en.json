@@ -41,7 +41,7 @@
   "admin.title": "Administration",
   "admin.to": "To",
   "admin.top": "Top products",
-  "app.bootErrorText": "Open the page through http://localhost (not an IP address or file://), allow site storage, then reload. The technical detail below can be attached to a bug report.",
+  "app.bootErrorText": "Open the page through http://localhost (not an IP address or file://) and allow site storage. If the problem persists, clear the local data with the button below: it may come from an older version. The technical detail can be attached to a bug report.",
   "app.bootErrorTitle": "The application could not start",
   "app.loading": "Loading the demo shop…",
   "badge.Best seller": "Best seller",
@@ -453,5 +453,6 @@
   "wishlist.removed": "Removed from wishlist.",
   "wishlist.saved": "Saved to wishlist.",
   "wishlist.signIn": "Sign in to save products.",
-  "wishlist.title": "Wishlist"
+  "wishlist.title": "Wishlist",
+  "app.bootReset": "Clear local data and reload"
 }

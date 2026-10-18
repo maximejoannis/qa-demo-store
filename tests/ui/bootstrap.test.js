@@ -69,6 +69,30 @@ describe('WEB-BOOT start-up', () => {
     expect(root.querySelector('pre')?.textContent).toBe('plain failure');
   });
 
+  it('WEB-BOOT-06 the error screen can clear the local data of every version and reload', async () => {
+    const { showBootError } = await import('../../src/ui/boot.js');
+    localStorage.setItem('qads:cart', '[]');
+    localStorage.setItem('qads2:db', '{}');
+    localStorage.setItem('other-app', 'kept');
+    sessionStorage.setItem('qads2:session', 'x');
+    const root = document.createElement('div');
+    const reload = vi.fn();
+    showBootError(root, new Error('broken'), reload);
+    root.querySelector('[data-testid="boot-reset"]').click();
+    expect(reload).toHaveBeenCalledOnce();
+    expect(localStorage.getItem('qads:cart')).toBeNull();
+    expect(localStorage.getItem('qads2:db')).toBeNull();
+    expect(sessionStorage.getItem('qads2:session')).toBeNull();
+    expect(localStorage.getItem('other-app')).toBe('kept');
+    localStorage.clear();
+    const { clearLocalData } = await import('../../src/ui/boot.js');
+    const blocked = vi.spyOn(window, 'localStorage', 'get').mockImplementation(() => {
+      throw new Error('blocked');
+    });
+    expect(() => clearLocalData()).not.toThrow();
+    blocked.mockRestore();
+  });
+
   it('WEB-BOOT-04 does nothing without an #app element; runtime configuration', async () => {
     vi.resetModules();
     document.body.innerHTML = '';
