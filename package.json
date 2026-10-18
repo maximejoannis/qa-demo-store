@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "description": "Boutique fictive en HTML, CSS et JavaScript vanilla : terrain d'entraînement pour les tests fonctionnels et automatisés.",
+  "author": "Maxime Joannis",
+  "license": "UNLICENSED",
   "engines": {
     "node": ">=20.19"
   },

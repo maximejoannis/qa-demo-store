@@ -26,7 +26,7 @@
 [![WCAG](https://img.shields.io/badge/accessibilit%C3%A9-WCAG%202.2%20AA-005A9C)](docs/design-tokens.md)
 [![RGPD](https://img.shields.io/badge/RGPD-testable-0055A4)](docs/rgpd.md)
 [![Langues](https://img.shields.io/badge/langues-FR%20%7C%20EN-blue)](src/i18n)
-[![Licence](https://img.shields.io/badge/licence-aucune-lightgrey)](#-licence)
+[![Licence](https://img.shields.io/badge/licence-tous%20droits%20r%C3%A9serv%C3%A9s-red)](LICENSE)
 
 **[🌐 Ouvrir l'application](https://maximejoannis.github.io/qa-demo-store/)** ·
 **[📘 Guide du testeur](docs/qa/guide-testeur.md)** ·
@@ -53,8 +53,7 @@
 9. [Documentation](#-documentation)
 10. [Déploiement sur GitHub Pages](#-déploiement-sur-github-pages)
 11. [Dépannage](#-dépannage)
-12. [Contribuer](#-contribuer)
-13. [Licence](#-licence)
+12. [Licence](#-licence)
 
 ---
 
@@ -372,20 +371,12 @@ Rien d'autre n'est nécessaire : pas de serveur, pas de base de données, pas de
 
 ---
 
-## 🤝 Contribuer
-
-1. Créez une branche : `git switch -c ma-modification`.
-2. Modifiez, puis vérifiez : `npm run quality` doit être vert.
-3. Messages de commit au format [Conventional Commits](https://www.conventionalcommits.org/fr/) (`feat:`, `fix:`, `docs:`, `test:`, `chore:`).
-4. Ouvrez une Pull Request vers `main`.
-
-Une règle métier modifiée doit l'être aussi dans `docs/specs/regles-metier.md`, avec au moins un test portant son identifiant (ex. `ENG-VAT-01`). Un `data-testid` ne se renomme jamais sans mention dans le CHANGELOG.
-
-Vous avez trouvé une anomalie ? Ouvrez une issue avec le modèle **Anomalie**.
-
----
-
 ## 📄 Licence
 
-Projet pédagogique, sans licence déclarée : tous droits réservés à son auteur.
-La police **Poppins** est distribuée sous licence SIL Open Font License ([`public/fonts/OFL.txt`](public/fonts/OFL.txt)).
+**© 2026 Maxime Joannis. Tous droits réservés.**
+
+Cette application, son code source, sa documentation et ses données de démonstration sont protégés par le droit d'auteur. **Seul l'auteur est autorisé à l'utiliser, la tester, la copier, la modifier ou la distribuer.** Aucune licence n'est accordée à des tiers, que ce soit pour un usage personnel, pédagogique ou commercial, sauf accord écrit préalable de l'auteur.
+
+Le texte complet figure dans le fichier [`LICENSE`](LICENSE).
+
+La police **Poppins** reste distribuée sous sa propre licence, la SIL Open Font License ([`public/fonts/OFL.txt`](public/fonts/OFL.txt)).
