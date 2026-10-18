@@ -1,72 +1,97 @@
-# QA Demo Store
+# QA Demo Store v2
 
 [![CI](https://github.com/maximejoannis/qa-demo-store/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/maximejoannis/qa-demo-store/actions/workflows/ci.yml)
-[![Site](https://img.shields.io/website?url=https%3A%2F%2Fmaximejoannis.github.io%2Fqa-demo-store%2F&label=site&up_message=accessible&down_message=indisponible)](https://maximejoannis.github.io/qa-demo-store/)
 
-![JavaScript vanilla](https://img.shields.io/badge/JavaScript-vanilla-F7DF1E?logo=javascript&logoColor=black)
-![Vite](https://img.shields.io/badge/build-Vite-646CFF?logo=vite&logoColor=white)
-![Vitest](https://img.shields.io/badge/tests-Vitest-6E9F18?logo=vitest&logoColor=white)
-![Node.js 24](https://img.shields.io/badge/Node.js-24-339933?logo=nodedotjs&logoColor=white)
-![Sans licence](https://img.shields.io/badge/licence-aucune-555555)
+Boutique en ligne **fictive** écrite en **HTML, CSS et JavaScript vanilla** (modules ES, Vite). C'est un **terrain d'entraînement QA** : tests fonctionnels, tests automatisés (Playwright dans un projet séparé), tests d'API, d'accessibilité et exercices de détection de défauts. Tous les comptes, produits et paiements sont fictifs : n'y saisissez aucune donnée réelle.
 
-Application e-commerce statique de démonstration, développée en HTML, CSS et JavaScript vanilla avec les modules ES et Vite. Elle sert de support aux tests logiciels et à l'automatisation QA : données de démonstration déterministes, règles métier testables, tests unitaires, couverture de code et déploiement continu sur GitHub Pages. Tous les comptes, produits et paiements sont fictifs.
+**En ligne :** [maximejoannis.github.io/qa-demo-store](https://maximejoannis.github.io/qa-demo-store/) — gratuit, sans service externe.
 
-**Application en ligne :** [maximejoannis.github.io/qa-demo-store](https://maximejoannis.github.io/qa-demo-store/)
+## Démarrer (Windows PowerShell)
+
+Prérequis : [Node.js](https://nodejs.org/) 22 ou 24 (LTS).
+
+```powershell
+npm ci
+npm run dev
+```
+
+Ouvrez ensuite **http://localhost:5173/qa-demo-store/** (ajoutez `?qa=1` pour la barre d'outils QA).
+Les mêmes commandes fonctionnent sous macOS et Linux.
+
+## Commandes
+
+| Commande                            | Rôle                                                                        |
+| ----------------------------------- | --------------------------------------------------------------------------- |
+| `npm run dev`                       | Application + back-end **dans la page** (données dans le localStorage)      |
+| `npm run server`                    | API Node optionnelle sur le port 3000 (données dans `data/db.json`)         |
+| `npm run dev:server`                | Application qui appelle l'API Node (lancer `npm run server` à côté)         |
+| `npm run build` / `npm run preview` | Site statique dans `dist/` / prévisualisation sur le port 4173              |
+| `npm test`                          | Tests unitaires (Vitest)                                                    |
+| `npm run test:coverage`             | Tests + couverture (rapport HTML dans `coverage/index.html`)                |
+| `npm run test:mutation`             | Tests de mutation du moteur de calcul (Stryker, facultatif, quelques min)   |
+| `npm run lint` / `npm run format`   | ESLint / Prettier                                                           |
+| `npm run docs`                      | Régénère `docs/qa/testids.md`, `docs/tracabilite.md`, `public/openapi.json` |
+| `npm run quality`                   | Tout ce que vérifie la CI : format, lint, couverture, traçabilité, build    |
+
+Pour tester avec l'API Node, ouvrez **deux** terminaux PowerShell :
+
+```powershell
+# Terminal 1
+npm run server
+# Terminal 2
+npm run dev:server
+```
 
 ## Fonctionnalités
 
-- Inscription, connexion et déconnexion simulées, compte verrouillé, rôles client et administrateur, profil modifiable et adresse de livraison par défaut.
-- Catalogue de 16 produits répartis en six catégories, illustrations SVG locales, fiches détaillées, recherche, filtres combinables, six tris et pagination.
-- Promotions limitées dans le temps, liste de souhaits avec transfert vers le panier, avis, gestion des stocks et panier persistant.
-- Coupons `WELCOME10`, `SAVE20` et `FREESHIP`, trois modes de livraison, calculs en centimes avec taxe, commande en quatre étapes et paiement fictif déterministe.
-- Confirmation, historique et détails des commandes ; annulation avec restitution du stock ; gestion des produits et statuts des commandes par l'administrateur.
-- Modes clair et sombre, préférences de tri et de pagination persistantes, messages accessibles, états vides et bouton **Reset Demo Data**.
+- Catalogue de 18 produits : recherche, filtres, tris, pagination, fiches, avis, comparateur (3 produits), favoris, alertes de retour en stock.
+- Panier et commande en 4 étapes ; tous les montants viennent du **moteur de calcul** côté back-end : TVA par taux (20 % / 5,5 % pour les livres), codes promo, livraison par zone et par poids, jours ouvrés et fériés français, fidélité (Bronze / Argent / Or), paiement en 3 ou 4 fois, droit de rétractation de 14 jours, factures.
+- Compte : profil, commandes, retours, points de fidélité, « Mes données » (export, suppression).
+- Administration : produits, statuts de commande, indicateurs (KPI), réapprovisionnement, purge RGPD.
+- **RGPD** : bandeau de consentement, politique de confidentialité, droits d'accès / effacement / portabilité, durées de conservation (voir [`docs/rgpd.md`](docs/rgpd.md)).
+- Français et anglais, thème clair / sombre, accessibilité WCAG 2.2 AA, couleurs imposées par `instructions.txt` ([`docs/design-tokens.md`](docs/design-tokens.md)).
 
-## Installation et commandes
+## Pour les testeurs
 
-**Prérequis : Node.js 24** pour exécuter les tests d'interface avec la version de jsdom utilisée par le projet. Depuis la racine du dépôt :
+- [Guide du testeur](docs/qa/guide-testeur.md) : modes, comptes, cartes, codes promo, scénarios, horloge pilotable, barre QA, API.
+- [Contrat des `data-testid`](docs/qa/testids.md) : sélecteurs stables (ceux de la v1 sont conservés).
+- [Règles métier](docs/specs/regles-metier.md) : l'oracle de test, avec des exemples chiffrés au centime.
+- [Comptes à problème](docs/qa/comptes-de-test.md) : six comptes avec des défauts volontaires à trouver.
+- [OpenAPI](public/openapi.json) : 40 opérations, erreurs au format RFC 9457.
 
-| Commande                                  | Rôle                                                          |
-| ----------------------------------------- | ------------------------------------------------------------- |
-| `npm install` / `npm ci`                  | Installer les dépendances ; la CI utilise `npm ci`            |
-| `npm run dev`                             | Démarrer le serveur de développement Vite                     |
-| `npm run build`                           | Générer le site statique dans `dist/`                         |
-| `npm run preview`                         | Prévisualiser localement le build de production               |
-| `npm test` / `npm run test:watch`         | Exécuter les tests une fois / en continu                      |
-| `npm run test:coverage`                   | Produire les rapports V8 texte, HTML et LCOV dans `coverage/` |
-| `npm run lint` / `npm run lint:fix`       | Vérifier / corriger avec ESLint                               |
-| `npm run format` / `npm run format:check` | Formater / vérifier avec Prettier                             |
-| `npm run quality`                         | Vérifier format, lint, tests, couverture et build             |
+| Compte          | Mot de passe | Rôle                 |
+| --------------- | ------------ | -------------------- |
+| `standard_user` | `demo123`    | Client               |
+| `premium_user`  | `demo123`    | Client niveau Argent |
+| `admin_user`    | `admin123`   | Administrateur       |
+| `locked_user`   | `demo123`    | Compte verrouillé    |
 
-Ouvrir l'URL fournie par Vite, sous `/qa-demo-store/`. Ouvrir directement le fichier source `index.html` avec `file://` ne lance pas l'application Vite.
+Carte acceptée : `4242 4242 4242 4242`. Paramètres d'URL utiles : `?qa=1`, `?now=2026-12-31T23:59:30%2B01:00`, `?seed=42`, `?lang=en`, `?latency=2000`, `?fail=quotes:503`.
 
-## Comptes et paiements de démonstration
+## Architecture
 
-| Identifiant     | Mot de passe | Rôle              |
-| --------------- | ------------ | ----------------- |
-| `standard_user` | `demo123`    | Client            |
-| `premium_user`  | `demo123`    | Client            |
-| `admin_user`    | `admin123`   | Administrateur    |
-| `locked_user`   | `demo123`    | Compte verrouillé |
+```
+src/
+  engine/     moteur de calcul : fonctions pures, montants en centimes entiers, dates de Paris
+  backend/    routes /api/v1/*, validation stricte, données de démo, défauts volontaires
+  client/     client HTTP de la page (une seule porte d'entrée vers le back-end)
+  ui/         vues, rendu échappé par défaut, routeur, data-testid
+  i18n/       textes FR / EN
+  styles/     CSS (variables de couleur imposées)
+server/       API Node optionnelle (node:http, aucun framework) qui réutilise src/backend
+tests/        tests unitaires : engine, backend, contract, server, ui
+scripts/      génération de la documentation
+```
 
-La carte fictive `4242424242424242` est acceptée ; `4000000000000002` est refusée, `4000000000000069` simule une carte expirée et `4000000000000119` une erreur technique. Le paiement à la livraison est également disponible. **Ne saisir aucune vraie carte ni aucun mot de passe personnel.** Les données sont enregistrées dans le `localStorage` du navigateur. **Reset Demo Data** restaure les comptes, produits, commandes, avis et préférences initiaux.
+Le même code `src/backend` tourne **dans la page** (GitHub Pages, `npm run dev`) et **dans l'API Node** : mêmes routes, mêmes réponses, vérifié par les tests `PARITY-*`. Si le navigateur bloque le stockage, l'application fonctionne en mémoire au lieu d'afficher une page blanche.
 
-Lorsqu'une version plus ancienne a déjà été utilisée dans le navigateur, une migration complète les chemins des illustrations et les dates des promotions sans effacer les stocks, prix et commandes modifiés.
+## Qualité
 
-## Architecture et tests
+- **222 tests unitaires**, couverture vérifiée **fichier par fichier** : ≥ 80 % partout, ≥ 95 % pour le moteur (mesuré : 99,9 % des lignes, 96 % des branches). L'interface est incluse dans la mesure.
+- Tests de propriétés (fast-check), contrat d'API rejoué sur les trois adaptateurs, contrôle axe-core, sécurité de l'API Node (cookies, CSRF, CORS, débit, IDOR, taille du corps).
+- Chaque règle métier documentée est couverte par au moins un test (`npm run traceability:check`, vérifié en CI).
+- Les tests E2E Playwright vivent dans le projet QA séparé.
 
-`src/main.js` gère l'affichage, la navigation et les événements du DOM. Les règles métier testables sont réparties dans `src/auth`, `catalog`, `cart`, `inventory`, `promotions`, `coupons`, `shipping`, `payment`, `pricing`, `orders`, `admin` et `storage`. Les produits sont définis dans `src/data`, les illustrations se trouvent dans `public/products`, les styles adaptatifs dans `src/styles` et les tests dans `tests/`.
+## Licence
 
-Vitest avec V8 impose les seuils suivants : **instructions ≥ 90 %, lignes ≥ 90 %, fonctions ≥ 90 % et branches ≥ 85 %**. Le rapport de couverture exclut `src/main.js`, qui contient l'interface. Deux tests jsdom exercent certains parcours de l'interface, dont la commande complète. Ces pourcentages mesurent la **couverture de code** ; la **couverture fonctionnelle** des exigences et scénarios sera suivie séparément dans le futur projet Playwright.
-
-## CI et GitHub Pages
-
-Le workflow [`.github/workflows/ci.yml`](.github/workflows/ci.yml) lance `npm ci`, Prettier, ESLint, les tests et le seuil de couverture, puis le build Vite sur les pushs et pull requests vers `main`. Seul un push sur `main` dont les contrôles réussissent publie `dist/` sur GitHub Pages ; les pull requests ne publient pas l'application.
-
-Dans les paramètres du dépôt, la source Pages doit être **GitHub Actions**. Vite utilise `base: '/qa-demo-store/'` : `dist/index.html`, les scripts, les styles et les SVG sont ainsi servis sous le bon chemin. La navigation utilise des URL avec `#` (`#/products/1`, `#/orders`, `#/admin`), compatibles avec l'actualisation et l'accès direct sur un hébergement statique.
-
-## Limites et suite du projet
-
-Cette application publique fonctionne uniquement dans le navigateur. **L'authentification est simulée et n'assure aucune sécurité réelle** : les mots de passe créés à l'inscription sont conservés en clair dans le `localStorage`. Il faut donc utiliser exclusivement des identifiants inventés. Aucun paiement bancaire ni partage de données entre navigateurs n'est effectué. Les SVG sont des illustrations, pas des photos produits. Les tests E2E Playwright, les audits d'accessibilité et le suivi de couverture fonctionnelle sont prévus dans un projet QA distinct.
-
-Le code est consultable dans ce dépôt public. **Aucune licence de réutilisation n'est accordée.**
+Projet pédagogique sans licence déclarée. Police Poppins sous licence SIL OFL (`public/fonts/OFL.txt`).

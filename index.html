@@ -1,12 +1,27 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="fr" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' __QADS_API_ORIGIN__; base-uri 'self'; form-action 'self'; object-src 'none'"
+    />
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      name="description"
+      content="QA Demo Store : boutique fictive pour s'entraîner aux tests fonctionnels et automatisés."
+    />
+    <meta name="theme-color" content="#2563eb" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563eb'/%3E%3Cpath d='M9 17l5 5 9-12' stroke='white' stroke-width='3' fill='none'/%3E%3C/svg%3E"
+    />
     <title>QA Demo Store</title>
   </head>
   <body>
     <div id="app"></div>
+    <noscript>JavaScript est nécessaire pour utiliser cette application de démonstration.</noscript>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
