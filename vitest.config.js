@@ -1,17 +1,25 @@
 import { defineConfig } from 'vitest/config';
+
 export default defineConfig({
   test: {
-    environment: 'node',
     include: ['tests/**/*.test.js'],
-    maxWorkers: 1,
-    minWorkers: 1,
+    environment: 'node',
+    environmentMatchGlobs: [['tests/ui/**', 'jsdom']],
+    env: { TZ: 'Europe/Paris' },
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'html', 'lcov'],
+      reporter: ['text', 'html', 'lcov', 'json-summary'],
       reportsDirectory: 'coverage',
-      include: ['src/**/*.js'],
-      exclude: ['src/main.js'], // DOM shell only; all business logic lives in domain modules
-      thresholds: { statements: 90, lines: 90, functions: 90, branches: 85 },
+      include: ['src/**/*.js', 'server/**/*.js'],
+      // Interface included: no file is excluded from coverage.
+      thresholds: {
+        perFile: true,
+        lines: 80,
+        statements: 80,
+        functions: 80,
+        branches: 80,
+        'src/engine/**': { lines: 95, statements: 95, functions: 95, branches: 90 },
+      },
     },
   },
 });

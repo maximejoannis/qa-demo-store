@@ -1,4 +1,9 @@
 node_modules
 dist
 coverage
+reports
+.stryker-tmp
 package-lock.json
+public
+docs/tracabilite.md
+docs/qa/testids.md

@@ -1,0 +1,15 @@
+export const C = {
+  products: 'products',
+  users: 'users',
+  sessions: 'sessions',
+  quotes: 'quotes',
+  orders: 'orders',
+  idempotency: 'idempotency',
+  reviews: 'reviews',
+  wishlists: 'wishlists',
+  loyalty: 'loyalty',
+  consents: 'consents',
+  stockAlerts: 'stockAlerts',
+  logs: 'logs',
+  meta: 'meta',
+};
