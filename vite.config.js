@@ -3,7 +3,9 @@ import { defineConfig, loadEnv } from 'vite';
 export default defineConfig(({ mode, command }) => {
   const env = loadEnv(mode, process.cwd(), 'VITE_');
   const apiOrigin =
-    env.VITE_API_MODE === 'server' ? new URL(env.VITE_API_URL || 'http://localhost:3000').origin : '';
+    env.VITE_API_MODE === 'server'
+      ? new URL(env.VITE_API_URL || 'http://localhost:3000').origin
+      : '';
   return {
     base: '/qa-demo-store/',
     server: { port: 5173 },

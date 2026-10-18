@@ -13,12 +13,11 @@ import { beforeAll, describe, expect, it } from 'vitest';
 
 const FROZEN = '2026-10-12T10:00:00+02:00';
 
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters -- typed view of a JSON body
 const body = (response) => response.body;
 
 /**
- * PARITY: the same contract scenarios run against every adapter (in-process, Fastify,
- * Service Worker). Same clock, same seed => same answers.
+ * PARITY: the same contract scenarios run against every adapter (in-process, in-page
+ * fetcher, Node HTTP API). Same clock, same seed => same answers.
  */
 export function paritySuite(label, setup) {
   describe(`PARITY ${label}`, () => {

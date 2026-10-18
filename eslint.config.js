@@ -23,14 +23,23 @@ export default [
       ],
       'no-restricted-properties': [
         'error',
-        { object: 'Date', property: 'now', message: 'Use the injected clock instead of Date.now().' },
+        {
+          object: 'Date',
+          property: 'now',
+          message: 'Use the injected clock instead of Date.now().',
+        },
       ],
     },
   },
   {
-    // Entry points are the only places allowed to read the system clock.
-    files: ['src/main.js', 'server/**/*.js', 'scripts/**/*.js'],
+    // Entry points/adapters are the only places allowed to read the system clock.
+    files: ['src/main.js', 'src/backend/local-backend.js', 'server/**/*.js', 'scripts/**/*.js'],
     rules: { 'no-restricted-syntax': 'off', 'no-restricted-properties': 'off' },
+  },
+  {
+    // File paths there come from the operator's configuration, never from a request.
+    files: ['server/**/*.js', 'scripts/**/*.js'],
+    rules: { 'security/detect-non-literal-fs-filename': 'off' },
   },
   {
     files: ['tests/**/*.js'],

@@ -87,6 +87,7 @@ export const ProfileUpdateSchema = object(
     email: email(),
     phone: string({
       max: 20,
+      // eslint-disable-next-line security/detect-unsafe-regex -- bounded, no nested quantifier
       pattern: /^(\+?[0-9 .-]{6,20})?$/,
       message: 'Invalid phone number',
       default: '',
