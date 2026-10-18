@@ -42,6 +42,11 @@ export default [
     rules: { 'security/detect-non-literal-fs-filename': 'off' },
   },
   {
+    // Build scripts only read local repository files.
+    files: ['scripts/**/*.js'],
+    rules: { 'security/detect-unsafe-regex': 'off' },
+  },
+  {
     files: ['tests/**/*.js'],
     rules: {
       'no-restricted-syntax': 'off',

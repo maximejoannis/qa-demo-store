@@ -26,7 +26,7 @@ describe('Node API security', () => {
     expect(response.headers.get('cache-control')).toBe('no-store');
   });
 
-  it('SRV-02 login sets an HttpOnly SameSite=Strict cookie, logout clears it', async () => {
+  it('SRV-02 SEC-01 login sets an HttpOnly SameSite=Strict cookie, logout clears it', async () => {
     running = await startServer();
     const response = await raw('/auth/login', {
       method: 'POST',
@@ -48,7 +48,7 @@ describe('Node API security', () => {
     expect(logout.headers.get('set-cookie')).toContain('Max-Age=0');
   });
 
-  it('SRV-03 a write without the anti-CSRF header is refused', async () => {
+  it('SRV-03 SEC-03 a write without the anti-CSRF header is refused', async () => {
     running = await startServer();
     const response = await raw('/auth/login', {
       method: 'POST',
@@ -95,7 +95,7 @@ describe('Node API security', () => {
     expect(text.status).toBe(415);
   });
 
-  it('SRV-06 login is rate limited per IP (429 + Retry-After)', async () => {
+  it('SRV-06 SEC-05 login is rate limited per IP (429 + Retry-After)', async () => {
     running = await startServer({ loginLimit: 2 });
     const attempt = () =>
       raw('/auth/login', {
@@ -122,7 +122,7 @@ describe('Node API security', () => {
     ).toBe(405);
   });
 
-  it('SRV-08 IDOR: a user cannot read the order of another user', async () => {
+  it('SRV-08 SEC-07 IDOR: a user cannot read the order of another user', async () => {
     running = await startServer();
     const alice = httpClient(running.base);
     await alice.request('POST', '/demo/reset', { scenario: 'default' });
@@ -135,6 +135,35 @@ describe('Node API security', () => {
     expect([403, 404]).toContain(stolen.status);
     const anonymous = await httpClient(running.base).request('GET', '/orders');
     expect(anonymous.status).toBe(401);
+  });
+
+  it('SRV-14 SEC-08 a price sent by the client is refused (strict schemas)', async () => {
+    running = await startServer();
+    const client = httpClient(running.base);
+    const quote = await client.request('POST', '/quotes', {
+      lines: [{ productId: 1, qty: 1, price: 1 }],
+      shippingMethod: 'standard',
+      destination: { country: 'FR' },
+    });
+    expect(quote.status).toBe(400);
+    expect(JSON.stringify(quote.body)).toContain('price');
+  });
+
+  it('SRV-15 SEC-09 logs contain neither password, token nor username', async () => {
+    const lines = [];
+    running = await startServer({
+      log: (event, data) => lines.push(JSON.stringify({ event, ...data })),
+    });
+    const client = httpClient(running.base);
+    await client.request('POST', '/auth/login', { username: 'standard_user', password: 'wrong-1' });
+    const ok = await client.request('POST', '/auth/login', {
+      username: 'standard_user',
+      password: 'demo123',
+    });
+    expect(ok.status).toBe(200);
+    expect(lines.length).toBeGreaterThan(0);
+    const all = lines.join('\n');
+    expect(all).not.toMatch(/standard_user|demo123|wrong-1|[a-f0-9]{64}/);
   });
 
   it('SRV-09 demo routes disappear when demo mode is off', async () => {
